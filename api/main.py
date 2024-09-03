@@ -1,21 +1,28 @@
-import os
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
-from flask import Flask, render_template
-
-app = Flask(__name__)
-page_folder = os.path.join('..', os.path.dirname(__file__), 'pages')
-app.static_folder = os.path.join('..', os.path.dirname(__file__), 'src')
+app = FastAPI()
 
 
-def _get_page(pageName: str):
-    with open(os.path.join(f"{page_folder}", f"{pageName}.html")) as f:
-        return f.read()
+@app.get("/", response_class=HTMLResponse)
+def read_root():
+    with open('../pages/home.html', 'r') as f:
+        html_content = f.read()
+    return html_content
 
 
-@app.route("/")
-def root():
-    return _get_page('home')
-
-
-if __name__ == "__main__":
-    app.run(debug=False)
+@app.get("/items/{item_id}", response_class=HTMLResponse)
+def read_item(item_id: int, q: str = None):
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Item {item_id}</title>
+    </head>
+    <body>
+        <h1>Item ID: {item_id}</h1>
+        <p>Query: {q}</p>
+    </body>
+    </html>
+    """
+    return html_content
