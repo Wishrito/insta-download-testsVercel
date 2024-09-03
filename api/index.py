@@ -4,7 +4,10 @@ from os import path
 app = FastAPI()
 
 
+def render_page(page_name: str):
+    page = open(path.join('data', f'{page_name}.html')).read()
+    return page
+
 @app.get("/", response_class=HTMLResponse)
 def read_root():
-    html_content = open(path.join('data', 'home.html')).read()
-    return html_content
+    return render_page('home')
