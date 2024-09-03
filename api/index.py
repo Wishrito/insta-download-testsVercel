@@ -1,13 +1,21 @@
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
-from http.server import BaseHTTPRequestHandler
-from os.path import join
+app = FastAPI()
 
 
-class handler(BaseHTTPRequestHandler):
-
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
-        with open(join('data', 'file.txt'), 'r') as file:
-            return file.read()
+@app.get("/", response_class=HTMLResponse)
+def read_root():
+    html_content = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>My FastAPI App</title>
+    </head>
+    <body>
+        <h1>Hello, world!</h1>
+        <p>This is a simple HTML page served by FastAPI.</p>
+    </body>
+    </html>
+    """
+    return html_content
