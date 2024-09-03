@@ -10,6 +10,4 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
         with open(join('data', 'file.txt'), 'r') as file:
-          for line in file:
-            self.wfile.write(line.encode())
-        return
+            return file.read()
