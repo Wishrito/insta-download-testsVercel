@@ -7,7 +7,7 @@ app = FastAPI()
 
 
 def _render_page(page_name: str):
-    with open(path.join('data', 'src', 'pages', f'{page_name}.html')) as page:
+    with open(path.join('src', 'pages', f'{page_name}.html')) as page:
         return page.read()
 
 
