@@ -64,5 +64,13 @@
     </div>
     <div id="monImage"></div>
 </body>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            html2canvas(document.querySelector("#capture")).then(canvas => {
+                // Convert the canvas to a data URL
+                const imgData = canvas.toDataURL("image/png");
+            })
+        });
+    </script>
 </html>
