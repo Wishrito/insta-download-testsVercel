@@ -1,13 +1,12 @@
-from os.path import join
+from os.path import dirname, join
 
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from flask import Flask, render_template
 
-app = FastAPI()
+app = Flask(__name__)
+app.template_folder = join('..', dirname(__file__), 'pages')
+app.static_folder = join('..', dirname(__file__), 'src')
 
 
-@app.get("/", response_class=HTMLResponse)
+@app.route("/")
 def read_root():
-    with open(join('pages', 'home.html'), 'r') as f:
-        html_content = f.read()
-    return html_content
+    return render_template('home.html')
