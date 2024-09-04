@@ -70,6 +70,10 @@
             html2canvas(document.querySelector("#capture")).then(canvas => {
                 // Convert the canvas to a data URL
                 const imgData = canvas.toDataURL("image/png");
+
+                // Create a new image element for the OG tag
+                const ogImage = document.getElementById("og-image");
+                ogImage.setAttribute("content", imgData);
             })
         });
     </script>
